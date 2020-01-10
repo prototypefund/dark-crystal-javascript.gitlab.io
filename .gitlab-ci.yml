@@ -2,12 +2,10 @@ image: python:alpine
 
 before_script:
   - pip install mkdocs
-  # Add your custom theme if not inside a theme_dir
-  # (https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes)
-  # - pip install mkdocs-material
 
 pages:
   script:
+  - curl https://gitlab.com/dark-crystal/introduction-to-dark-crystal/raw/master/README.md > docs/introduction.md
   - mkdocs build
   - mv site public
   artifacts:
