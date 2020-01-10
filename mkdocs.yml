@@ -1,0 +1,22 @@
+site_name: Dark Crystal
+nav:
+  - Home: index.md
+  - Introduction: introduction.md
+  - Protocol specification: protocol-specification.md
+  - Threshold signatures: threshold-signatures-report.md
+  - Secret sharing: shamirs-secret-sharing.md
+theme:
+  name: null
+  custom_dir: 'material/'
+  language: en
+  palette:
+    primary: purple
+    accent: pink
+  font:
+    text: Roboto
+    code: Roboto Mono
+  logo:
+  feature:
+    tabs: false
+  static_templates:
+    - 404.html
