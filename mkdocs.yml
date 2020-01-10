@@ -1,11 +1,11 @@
 site_name: Dark Crystal
 site_url: https://dark-crystal.gitlab.io
 nav:
-  - Home: index.md
-  - Introduction: introduction-to-dark-crystal/README.md
+  - Home: 'index.md'
+  - Introduction: 'introduction-to-dark-crystal/README.md'
   # - Protocol specification: protocol-specification.md
   # - Threshold signatures: threshold-signatures.md
-  - Secret sharing: shamirs-secret-sharing.md
+  - 'Secret sharing': 'shamirs-secret-sharing.md'
 theme:
   name: null
   custom_dir: 'material/'
