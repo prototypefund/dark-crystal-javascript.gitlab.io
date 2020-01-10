@@ -6,6 +6,8 @@ before_script:
 pages:
   script:
   - curl https://gitlab.com/dark-crystal/introduction-to-dark-crystal/raw/master/README.md > docs/introduction.md
+  - curl https://gitlab.com/dark-crystal/threshold-signatures-report/raw/master/README.md > docs/threshold-signatures.md
+  - curl https://gitlab.com/dark-crystal/dark-crystal-protocol-specification/raw/master/README.md > docs/threshold-signatures.md
   - mkdocs build
   - mv site public
   artifacts:

@@ -4,7 +4,7 @@ nav:
   - Home: index.md
   - Introduction: introduction.md
   - Protocol specification: protocol-specification.md
-  - Threshold signatures: threshold-signatures-report.md
+  - Threshold signatures: threshold-signatures.md
   - Secret sharing: shamirs-secret-sharing.md
 theme:
   name: null
