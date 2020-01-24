@@ -56,6 +56,8 @@ With integrated applications this is not necessary, which is lucky because the p
 
 [![gif](./assets/dark-crystal-3.gif)](./assets/dark-crystal-3.gif)
 
+> Click on the animation to see it enlarged
+
 Here we see a short demo of entering data and selecting custodians in the original implementation.
 
 ![screenshot showing secret history](./assets/secret-history-screenshot.png)
