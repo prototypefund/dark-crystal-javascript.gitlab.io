@@ -54,7 +54,7 @@ Unlike application-specific key backup mechanisms, the original dark-crystal imp
 
 With integrated applications this is not necessary, which is lucky because the process of copying and pasting keys can be quite cumbersome, error-prone and has security issues. 
 
-![gif](./assets/dark-crystal-3.gif)
+[![gif](./assets/dark-crystal-3.gif)](./assets/dark-crystal-3.gif)
 
 Here we see a short demo of entering data and selecting custodians in the original implementation.
 

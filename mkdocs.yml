@@ -6,7 +6,7 @@ nav:
   - 'Key Backup Protocol specification': 'protocol-specification.md'
   - 'Key re-issuance using threshold signatures': 'threshold-signatures.md'
   - 'What is Secret sharing?': 'shamirs-secret-sharing.md'
-  - 'User Interface recommendations': 'ui-recommendations/README.md'
+  - 'User Interface recommendations': 'ui-recommendations.md'
 theme:
   name: null
   custom_dir: 'material/'
