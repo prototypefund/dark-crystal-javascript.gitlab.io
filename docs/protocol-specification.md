@@ -85,7 +85,9 @@ Shards are encrypted with the public key of each custodian and represented as ba
 
 Each encrypted shard is packed together with some metadata into a message, transmitted to the custodian, and a local (encrypted) copy is retained.
 
-***TODO:*** explain process of keeping a personal copy with serves as a reference that the shard was sent, but the shard data itself cannot be read by the secret-owner.
+Additionally, a message is published which is encrypted only to the secret owner themselves, with some metadata describing the secret.
+
+Details of these messages, as well as of the system of requesting, responding, and forwarding shards, are explained in the [message schemas section](message-schemas.md)
 
 ## Recovery process
 

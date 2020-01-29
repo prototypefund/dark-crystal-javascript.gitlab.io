@@ -4,6 +4,7 @@ nav:
   - 'Home': 'index.md'
   - 'Overview': 'introduction-to-dark-crystal.md'
   - 'Key Backup Protocol specification': 'protocol-specification.md'
+  - 'Key Backup Message Schemas': 'message-schemas.md'
   - 'Key re-issuance using threshold signatures': 'threshold-signatures.md'
   - 'What is Secret sharing?': 'shamirs-secret-sharing.md'
   - 'User Interface recommendations': 'ui-recommendations.md'
