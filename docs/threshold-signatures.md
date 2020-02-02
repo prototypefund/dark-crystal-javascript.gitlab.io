@@ -69,10 +69,10 @@ A major disadvantage is that unlike secret sharing schemes like Shamirs, this re
 
 ## Other javascript implementations
 
-- https://github.com/PolkaJS/thresh-sig - has some interesting (but old) academic papers linked
-- https://github.com/antouhou/bls-signatures
-- https://github.com/wa1one/bls-sign
-- https://www.npmjs.com/package/noble-bls12-381
+- [PolkaJS/thresh-sig](https://github.com/PolkaJS/thresh-sig) - has some interesting (but old) academic papers linked
+- [antouhou/bls-signatures](https://github.com/antouhou/bls-signatures)
+- [wa1one/bls-sign](https://github.com/wa1one/bls-sign)
+- [noble-bls12-381](https://www.npmjs.com/package/noble-bls12-381)
 
 ## References and links
 
