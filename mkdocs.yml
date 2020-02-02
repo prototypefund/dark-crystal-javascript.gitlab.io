@@ -8,6 +8,7 @@ nav:
   - 'Key re-issuance using threshold signatures': 'threshold-signatures.md'
   - 'What is Secret sharing?': 'shamirs-secret-sharing.md'
   - 'User Interface recommendations': 'ui-recommendations.md'
+  - 'Paper keys': 'paper-keys.md'
 theme:
   name: null
   custom_dir: 'material/'
