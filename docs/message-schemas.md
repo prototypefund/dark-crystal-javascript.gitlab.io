@@ -4,7 +4,7 @@ Message schemas are specifications for how particular kinds of messages should b
 
 Dark Crystal's key backup scheme currently has 4 types of messages: `root`, `shard`, `request`, `reply` and `forward`.
 
-A module containing exact specifications and validation methods in javascript - [json-schema.org](https://json-schema.org/) using [is-my-json-valid](https://github.com/mafintosh/is-my-json-valid) [is provided here](https://gitlab.com/dark-crystal/key-backup-message-schemas).
+A module containing exact specifications and validation methods in javascript - [json-schema.org](https://json-schema.org/) using [is-my-json-valid](https://github.com/mafintosh/is-my-json-valid) is [provided here](https://gitlab.com/dark-crystal/key-backup-message-schemas).
 
 These schemas can be seen as templates, as you may want to modify them based on the individual needs of your project. But they can also be simply used as they are.
 
