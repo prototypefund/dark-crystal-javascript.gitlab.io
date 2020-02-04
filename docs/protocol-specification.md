@@ -1,5 +1,5 @@
 
-# Dark Crystal Social Recovery Protocol Specification (WIP)
+# Dark Crystal Social Recovery Protocol Specification
 
 ![dark crystal icon](./assets/dark-crystal-icon_200x200.png)
 
@@ -30,7 +30,7 @@ The process of recovering a key
 
 ## Peer experience
 
-This is a technical specification of the protocol. Many stages of the process will be automated and not visible to the peers.  Interface recommendations and peer stories are described in a separate document.
+This is a technical specification of the protocol. Many stages of the process will be automated and not visible to the peers.  [Interface recommendations](ui-recommendations.md) and peer stories are described elsewhere.
 
 ## Setup process
 
@@ -42,6 +42,11 @@ This is to indicate the intended purpose of the secret, meaning that it is still
 
 The amount of information included here depends on how critical it is that share size is kept small.
 
+In the included library, we have used [protocol buffers](https://developers.google.com/protocol-buffers/) to encode this message.
+
+- [`packLabel` in API Documentation](https://gitlab.com/dark-crystal/key-backup-crypto#const-packed-packlabelsecret-label)
+- [`packLabel` source code](https://gitlab.com/dark-crystal/key-backup-crypto/-/blob/f84e9726b5770e821ce083df32c156129f6b22dc/index.js#L15)
+
 ### Step 2 - Encrypt data with symmetric key
 
 ![secret and label with key](./assets/dc_secret_label2.png)
@@ -49,6 +54,9 @@ The amount of information included here depends on how critical it is that share
 If the data to be backed up is larger than 32 bytes, the data is encrypted with a symmetric key and this key is taken to be the secret. Otherwise, the data itself is taken to be the secret. It needs to be noted that many implementations of secret sharing do this internally, and produce shares which are a concatonation of a key-share and the encrypted secret.
 
 This means there is some duplication of data - a portion of each share is identical to the others. So in the case of particularly large secrets, it makes sense if the encrypted secret is stored only once in a place which is accessible to all share-holders (if the practicalities of the chosen transport layer make this possible).
+
+- [`encrypt` in API documentation](https://gitlab.com/dark-crystal/secret-sharing#encrypt)
+- [`encrypt` source code](https://gitlab.com/dark-crystal/secret-sharing/-/blob/9f484e9f47e726164b7ee975d32f4ca1f35b4780/index.js#L14)
 
 ### Step 3 - Message Authentication Code added
 
@@ -58,28 +66,50 @@ The secret is appended with it’s SHA-256 hash which serves as a message authen
 
 It is assumed that in step 2, the symmetric encryption algorithm used will also use a MAC.
 
+- [Source code](https://gitlab.com/dark-crystal/secret-sharing/-/blob/9f484e9f47e726164b7ee975d32f4ca1f35b4780/index.js#L19) (this is done internally in `encrypt`)
+
 ### Step 4 - Shards generated
 
 ![shards](./assets/dc_shards1.png)
 
-Shards are generated using a secure threshold-based secret sharing algorithm. 
+Shards are generated using a secure threshold-based secret sharing algorithm, [dsprenkels/sss](https://github.com/dsprenkels/sss) 
 
 If you are interested, here is an [explanation of secret sharing in very simple terms](shamirs-secret-sharing.md)
 
+- [`share` in API documentation](https://gitlab.com/dark-crystal/secret-sharing#share)
+- [`share` in source code](https://gitlab.com/dark-crystal/secret-sharing/-/blob/9f484e9f47e726164b7ee975d32f4ca1f35b4780/index.js#L60)
+
 ### Step 5 - Shards are signed
 
-Each shard is signed by the owner of the secret using a keypair with an established public key (such as the same keypair used to sign other messages in the application). 
+Each shard is signed by the owner of the secret using a keypair with an established public key (such as the same keypair used to sign other messages in the application).
+
 Shards are appended with these signatures.
 
-### Step 6 - Schema version number added
+This is to protect against shards being modified, maliciously or accidentally.  A discussion for this design decision can be found in the article [Security Considerations for Secret Sharing](security-shamirs.md)
 
-To ensure backward compatibility with future versions of the protocol.
+- [`signShard` in API documentation](https://gitlab.com/dark-crystal/key-backup-crypto#signshard)
+- [`signShard` source code](https://gitlab.com/dark-crystal/key-backup-crypto/-/blob/c8fcc37ea8ebc8431a00a957ca7bc34130cc90f9/index.js#L37)
+
+### Step 6 - Schema version number and timestamp added
+
+A version number ensures backward compatibility with future versions of the protocol.
+
+A timestamp allows secret-owner and custodian to keep track of what happened when.
+
+- [`_buildMessage` source code](https://gitlab.com/dark-crystal/key-backup/-/blob/82831daa9ad9f0d29b0fe4b124f14c203c37df31/index.js#L108)
 
 ### Step 7 - Signed shards encrypted for each custodian
 
 ![shards](./assets/dc_shards2.png)
 
-Shards are encrypted with the public key of each custodian and represented as base64 strings. The unencrypted shards are removed from memory. 
+Shards are encrypted with the public key of each custodian. The unencrypted shards are removed from memory. 
+
+'One-way box' is used to ensure the custodian can read the message, but the secret-owner cannot read it themselves.
+
+This is inspired by [private-box](https://github.com/auditdrivencrypto/private-box), see [this note in the design document](https://github.com/auditdrivencrypto/private-box/blob/master/design.md#one-way-box).  We could also just use private-box itself for this, but this method is simpler and gives us smaller shards.
+
+- [`oneWayBox` in API documentation](https://gitlab.com/dark-crystal/key-backup-crypto#onewaybox)
+- [`oneWayBox` source code](https://gitlab.com/dark-crystal/key-backup-crypto/-/blob/95f1471aa8a15dca5042f175e83f41f3db0f7230/index.js#L131)
 
 ### Step 8 - Transmission
 

@@ -23,3 +23,6 @@ There is a [reference implementation in Javascript](https://gitlab.com/dark-crys
 Dark Crystal is 100% open source, licensed [AGPL3](https://www.gnu.org/licenses/agpl-3.0.en.html).  You can use [our modules](https://gitlab.com/dark-crystal) in your projects, or just take inspiration from them to implement something similar. Every project has different needs, so we are trying to establish good patterns rather than build a generic tool which everybody should use.
 
 The reference implementation uses the [libsodium](https://download.libsodium.org/doc/) crypto library, [Daan Sprenkle's secret sharing library](https://github.com/dsprenkels/sss), and [herumi's implementation ](https://github.com/herumi/bls) of the [Boney-Lynn-Shacham signature scheme](https://hovav.net/ucsd/dist/sigs.pdf).  All are written in C/C++ with bindings to many popular languages.
+
+<img src="./assets/prototype.svg" height="100" alt="Prototype Fund logo"></a>
+<img src="./assets/images/BMBF_gefoerdert_2017_en.jpg" width="200" alt="Sponsored by the Federal Ministry of Education and Research">

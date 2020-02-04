@@ -3,12 +3,13 @@ site_url: https://dark-crystal.gitlab.io
 nav:
   - 'Home': 'index.md'
   - 'Overview': 'introduction-to-dark-crystal.md'
-  - 'Key Backup Protocol specification': 'protocol-specification.md'
-  - 'Key Backup Message Schemas': 'message-schemas.md'
-  - 'Key re-issuance using threshold signatures': 'threshold-signatures.md'
+  - 'Social Recovery Protocol specification': 'protocol-specification.md'
+  - 'Social Recovery Message Schemas': 'message-schemas.md'
   - 'What is Secret sharing?': 'shamirs-secret-sharing.md'
+  - 'Security considerations for secret sharing': 'security-shamirs.md'
   - 'User Interface recommendations': 'ui-recommendations.md'
-  - 'Paper keys': 'paper-keys.md'
+  - 'Key re-issuance using threshold signatures': 'threshold-signatures.md'
+  - 'Paper key backups': 'paper-keys.md'
 theme:
   name: null
   custom_dir: 'material/'
