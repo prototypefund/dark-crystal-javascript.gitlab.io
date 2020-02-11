@@ -41,26 +41,7 @@ Dark Crystal is a set of protocols and recommendations which aim to address ***t
 
 Dark Crystal aims to be agnostic to any particular language, technology, or transport protocol. We try to offer something useful to a broad range of software projects.
 
-## What are the protocols:
+## What are the protocols?
 
-### Dark crystal key recovery
+see the [explanation of the protocols](protocols.md)
 
-This protocol allows lost keys to be recovered.  This would be useful to decrypt existing data, or so that an account can continue to be used.
-
-It works by using a threshold secret sharing scheme such as Adi Shamir's. (Explain more)
-
-This is done is such a way they the identities of the members of the support group are kept private, and that there is specific degree of tolerance to a particular group members being unavailable or uncooperative. 
-
-- [Protocol specification](https://gitlab.com/dark-crystal/dark-crystal-protocol-specification)
-
-### Dark crystal key re-issuance
-
-This protocol provides a way of establishing a new key, so that an identity can be seen to persist to a new key.  This specifically addresses the cases where keys might have been compromised. 
-
-It works be each peer assigning a 'support group' who are empowered to make assertions on their behalf.  The support group can announce a new key when the old one is assumed to be compromised, and client software can resolve these announcements to get the current key for a particular identity.
-
-This is done is such a way they the identities of the members of the support group are kept private, and that there is specific degree of tolerance to a particular group members being unavailable or uncooperative. 
-
-It uses group threshold signatures using the Boney-Lynn-Shacham signature scheme.
-
-- [Proposal for Key re-issuance using threshold signatures](https://gitlab.com/dark-crystal/threshold-signatures-report)

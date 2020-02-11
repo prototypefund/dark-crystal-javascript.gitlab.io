@@ -32,6 +32,24 @@ The process of recovering a key
 
 This is a technical specification of the protocol. Many stages of the process will be automated and not visible to the peers.  [Interface recommendations](ui-recommendations.md) and peer stories are described elsewhere.
 
+## Descriptions of modules used in the reference implementation
+
+### [secret-sharing](https://gitlab.com/dark-crystal/secret-sharing)
+
+A wrapper around [dsprenkels/sss](https://github.com/dsprenkels/sss) providing functionality specific to dark-crystal key backup.
+
+### [key-backup-crypto](https://gitlab.com/dark-crystal/key-backup-crypto) 
+
+Contains cryptographic functions key backup and recovery.
+
+### [key-backup-message-schemas](https://gitlab.com/dark-crystal/key-backup-message-schemas)
+
+Contains JSON and (soon) protobuf template schemas for Dark Crystal key backup messages.  Also included are validation methods in javascript - [json-schema.org](https://json-schema.org/) using [is-my-json-valid](https://github.com/mafintosh/is-my-json-valid), and tests.
+
+### [key-backup](https://gitlab.com/dark-crystal/key-backup)
+
+A high level class for Dark Crystal key backup and recovery
+
 ## Setup process
 
 ### Step 1 - Combine secret with contextual metadata
@@ -76,8 +94,8 @@ Shards are generated using a secure threshold-based secret sharing algorithm, [d
 
 If you are interested, here is an [explanation of secret sharing in very simple terms](shamirs-secret-sharing.md)
 
-- [`share` in API documentation](https://gitlab.com/dark-crystal/secret-sharing#share)
-- [`share` in source code](https://gitlab.com/dark-crystal/secret-sharing/-/blob/9f484e9f47e726164b7ee975d32f4ca1f35b4780/index.js#L60)
+- [`share` - low-level - in API documentation](https://gitlab.com/dark-crystal/secret-sharing#share)
+- [`share` - low-level - in source code](https://gitlab.com/dark-crystal/secret-sharing/-/blob/9f484e9f47e726164b7ee975d32f4ca1f35b4780/index.js#L60)
 
 ### Step 5 - Shards are signed
 
@@ -115,7 +133,7 @@ This is inspired by [private-box](https://github.com/auditdrivencrypto/private-b
 
 Each encrypted shard is packed together with some metadata into a message, transmitted to the custodian, and a local (encrypted) copy is retained.
 
-Additionally, a message is published which is encrypted only to the secret owner themselves, with some metadata describing the secret.
+Additionally, a '`root`' message is published which is encrypted only to the secret owner themselves, which contains some metadata describing the secret.
 
 Details of these messages, as well as of the system of requesting, responding, and forwarding shards, are explained in the [message schemas section](message-schemas.md)
 
@@ -137,11 +155,12 @@ Each custodian decrypts the shard they are holding with their personal keypair, 
 
 The nature peer to peer protocols make it difficult to delete data. If this is the case with the transport mechanism you are using, we recommend adding a second layer of encryption using an ephemeral keypair. This is a single-use keypair which can later be deleted to effectively delete these messages from the system.  This will be explained in more detail in a separate document.
 
-- ***TODO:*** Explain safeguarding against sending shards to the wrong account.  This is a hard problem.
-
 ### Step 3 - Decrypt shards
 
-The secret owner decrypts the shards they receive.
+The secret owner decrypts the shards they receive, using `oneWayUnbox`.
+
+- [`oneWayUnbox` API documentation](https://gitlab.com/dark-crystal/key-backup-crypto/-/tree/master#onewayunbox)
+- [`oneWayUnbox` source code](https://gitlab.com/dark-crystal/key-backup-crypto/-/blob/master/index.js#L144)
 
 ### Step 4 - Validate shards
 
@@ -149,11 +168,22 @@ The secret owner decrypts the shards they receive.
 
 The signature of each shard is validated with the original public key, proving that the returned shards are identical to those sent out. 
 
+- [`openShard` API documentation](https://gitlab.com/dark-crystal/key-backup-crypto/-/tree/master#openshard)
+- [`openShard` source code](https://gitlab.com/dark-crystal/key-backup-crypto/-/blob/95f1471aa8a15dca5042f175e83f41f3db0f7230/index.js#L53)
+
+In the case that the shard could not be validated, the shard data can be retrieved anyway using `removeSignature`.
+
+- [`removeSignature` API documentation](https://gitlab.com/dark-crystal/key-backup-crypto/-/tree/master#removesignature)
+- [`removeSignature` source code](https://gitlab.com/dark-crystal/key-backup-crypto/-/blob/95f1471aa8a15dca5042f175e83f41f3db0f7230/index.js#L63)
+
 ### Step 5 - Secret recovery
 
 ![recovery](./assets/recovery-sm.png)
 
 The shards are combined to recover the secret.
+
+- [`combine` low-level API documentation](https://gitlab.com/dark-crystal/secret-sharing#combine)
+- [`combine` low-level source code](https://gitlab.com/dark-crystal/secret-sharing/-/blob/9f484e9f47e726164b7ee975d32f4ca1f35b4780/index.js#L80)
 
 ### Step 6 - Validate secret
 
@@ -166,6 +196,11 @@ The MAC is used to establish that recovery was successful.  This means we can be
 ![secret and label](./assets/dc_secret_label.png)
 
 Finally the secret is restored, along with a descriptive label.
+
+- [`decrypt` API documentation](https://gitlab.com/dark-crystal/secret-sharing#decrypt)
+- [`decrypt` source code](https://gitlab.com/dark-crystal/secret-sharing/-/blob/9f484e9f47e726164b7ee975d32f4ca1f35b4780/index.js#L24)
+- [`unpackLabel` API documentation](https://gitlab.com/dark-crystal/key-backup-crypto#unpacklabel)
+- [`unpackLabel` source code](https://gitlab.com/dark-crystal/key-backup-crypto/-/blob/95f1471aa8a15dca5042f175e83f41f3db0f7230/index.js#L21)
 
 ### Step 8 - Recover old account
 
