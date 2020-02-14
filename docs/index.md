@@ -26,6 +26,5 @@ The reference implementation uses the [libsodium](https://download.libsodium.org
 
 ---
 
-With support from <img src="./assets/prototype.svg" height="100" alt="Prototype Fund logo"></a>
-Sponsored by
-<img src="./assets/images/BMBF_gefoerdert_2017_en.jpg" width="200" alt="Sponsored by the Federal Ministry of Education and Research">
+<img src="./assets/images/BMBF_gefoerdert_2017_en.jpg" width="300" alt="Sponsored by the Federal Ministry of Education and Research">
+<img src="./assets/prototype.svg" height="100" alt="Prototype Fund logo">
