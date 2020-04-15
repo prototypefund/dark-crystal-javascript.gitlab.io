@@ -18,7 +18,7 @@ It is a toolkit for developers who want to bring secure and easy to use key mana
 
 ---
 
-There is a [reference implementation in Javascript](https://gitlab.com/dark-crystal), with implementations in other languages planned.
+There is a [reference implementation in Javascript](https://gitlab.com/dark-crystal-javascript), with implementations in other languages planned.
 
 Dark Crystal is 100% open source, licensed [AGPL3](https://www.gnu.org/licenses/agpl-3.0.en.html).  You can use [our modules](https://gitlab.com/dark-crystal) in your projects, or just take inspiration from them to implement something similar. Every project has different needs, so we are trying to establish good patterns rather than build a generic tool which everybody should use.
 
