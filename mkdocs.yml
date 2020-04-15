@@ -1,5 +1,5 @@
 site_name: Dark Crystal
-site_url: https://dark-crystal.gitlab.io
+site_url: https://dark-crystal-javascript.gitlab.io
 nav:
   - 'Home': 'index.md'
   - 'Overview': 'introduction-to-dark-crystal.md'
